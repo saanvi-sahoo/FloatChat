@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Globe, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
@@ -7,9 +8,11 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
+  const location = useLocation();
+  
   const navLinks = [
-    { name: 'Home', href: '#', active: true },
-    { name: 'Dashboard', href: '#dashboard' },
+    { name: 'Home', href: '/' },
+    { name: 'Dashboard', href: '/dashboard' },
     { name: 'Chatbot', href: '#chatbot' },
     { name: 'About', href: '#about' }
   ];
@@ -32,17 +35,17 @@ const Navbar: React.FC<NavbarProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
-                  link.active
+                  location.pathname === link.href
                     ? 'text-blue-400 bg-blue-400/10'
                     : 'text-gray-300 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -63,18 +66,18 @@ const Navbar: React.FC<NavbarProps> = ({ isMobileMenuOpen, setIsMobileMenuOpen }
         <div className="md:hidden bg-slate-800/95 backdrop-blur-sm border-t border-blue-900/20">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 ${
-                  link.active
+                  location.pathname === link.href
                     ? 'text-blue-400 bg-blue-400/10'
                     : 'text-gray-300 hover:text-white hover:bg-white/5'
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

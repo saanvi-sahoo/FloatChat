@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MessageCircle, BarChart3 } from 'lucide-react';
 import EarthGlobe from './EarthGlobe';
 
@@ -44,20 +45,20 @@ const HeroSection: React.FC = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl font-semibold text-white text-lg shadow-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105">
+              <Link to="#chatbot" className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl font-semibold text-white text-lg shadow-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105 text-center">
                 <span className="flex items-center justify-center gap-3">
                   <MessageCircle className="w-6 h-6 group-hover:rotate-12 transition-transform" />
                   Ask a Question
                 </span>
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300"></div>
-              </button>
+              </Link>
               
-              <button className="group px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl font-semibold text-white text-lg hover:bg-white/15 transition-all duration-300 hover:scale-105">
+              <Link to="/dashboard" className="group px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl font-semibold text-white text-lg hover:bg-white/15 transition-all duration-300 hover:scale-105 text-center">
                 <span className="flex items-center justify-center gap-3">
                   <BarChart3 className="w-6 h-6 group-hover:scale-110 transition-transform" />
                   Explore Data Dashboard
                 </span>
-              </button>
+              </Link>
             </div>
           </div>
 
