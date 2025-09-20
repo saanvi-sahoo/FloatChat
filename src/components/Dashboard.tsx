@@ -13,24 +13,50 @@ import {
   Settings,
   RefreshCw
 } from 'lucide-react';
+import { BarChart3, Map, Download, Filter, RefreshCw, TrendingUp, Layers } from 'lucide-react';
 import GeospatialMap from './dashboard/GeospatialMap';
 import DataTable from './dashboard/DataTable';
 import VisualizationCharts from './dashboard/VisualizationCharts';
 import ExportPanel from './dashboard/ExportPanel';
+import TrajectoryViewer from './dashboard/TrajectoryViewer';
+import ProfileComparison from './dashboard/ProfileComparison';
+import DepthTimePlots from './dashboard/DepthTimePlots';
 import FilterPanel from './dashboard/FilterPanel';
 
 const Dashboard: React.FC = () => {
-  const [activeView, setActiveView] = useState<'map' | 'charts' | 'table'>('map');
+  const [activeTab, setActiveTab] = useState('overview');
   const [showFilters, setShowFilters] = useState(false);
   const [showExport, setShowExport] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [activeView, setActiveView] = useState('map');
   const [filters, setFilters] = useState({
-    dateRange: { start: '2024-01-01', end: '2024-12-31' },
     parameters: ['temperature', 'salinity'],
+    dateRange: { start: null, end: null },
     region: 'global',
     depth: { min: 0, max: 2000 }
   });
+
+  const tabs = [
+    { id: 'overview', label: 'Overview', icon: Map },
+    { id: 'trajectories', label: 'Float Trajectories', icon: TrendingUp },
+    { id: 'profiles', label: 'Depth-Time Plots', icon: Layers },
+    { id: 'comparison', label: 'Profile Comparison', icon: BarChart3 },
+    { id: 'data', label: 'Data Explorer', icon: Filter }
+  ];
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'trajectories':
+        return <TrajectoryViewer />;
+      case 'profiles':
+        return <DepthTimePlots />;
+      case 'comparison':
+        return <ProfileComparison />;
+      case 'overview':
+      default:
+        return null;
+    }
+  };
 
   const viewOptions = [
     { id: 'map', label: 'Geospatial Map', icon: Globe },
@@ -40,7 +66,6 @@ const Dashboard: React.FC = () => {
 
   const handleRefreshData = () => {
     setIsLoading(true);
-    // Simulate data refresh
     setTimeout(() => setIsLoading(false), 2000);
   };
 
